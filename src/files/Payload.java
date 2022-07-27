@@ -14,4 +14,19 @@ public class Payload {
 				+ "  \"userStatus\": 0\r\n"
 				+ "}";
 	}
+	
+	public static String createUserArray(String username, String firstname, String lastname, String email, String pwd, String phone) {
+		return "[\r\n"
+				+ "  {\r\n"
+				+ "    \"id\": 0,\r\n"
+				+ "    \"username\": \"string\",\r\n"
+				+ "    \"firstName\": \"string\",\r\n"
+				+ "    \"lastName\": \"string\",\r\n"
+				+ "    \"email\": \"string\",\r\n"
+				+ "    \"password\": \"string\",\r\n"
+				+ "    \"phone\": \"string\",\r\n"
+				+ "    \"userStatus\": 0\r\n"
+				+ "  }\r\n"
+				+ "]";
+	}
 }
