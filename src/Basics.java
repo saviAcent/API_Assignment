@@ -21,6 +21,9 @@ public class Basics {
 		String emailData = Utils.getGlobalProperty("email");
 		String pwdData = Utils.getGlobalProperty("password");
 		String phoneData = Utils.getGlobalProperty("phone");
+		String[] array1 = {"Kamal", "Kamal", "De Silva", "kamalDS@gmail.com", "kamal123", "+6804584243"};
+		String[] array2 = {"Thamal", "Thamal", "Peris", "thamalP@gmail.com", "thamal123", "+5749999235"};
+		String[] array3 = {"Sumal", "Sumal", "Dissanayaka", "sumalDiss@gmail.com", "sumal123", "+6799900923"};
 		
 		//Create User
 		Response response = given().log().all().header("Content-Type","application/json").body(Payload.createUser(userNameData, firstNameData, lastNameData, emailData, pwdData, phoneData))
@@ -52,8 +55,8 @@ public class Basics {
 		assertEquals(headerGet,"application/json");
 		
 		given().log().all().when().get("/user/Acentura").then().log().all().assertThat().statusCode(404).extract().response();
-		//When pass the invalid username but code id 200
-		given().log().all().when().get("/user/NimalFT").then().log().all().assertThat().statusCode(200).extract().response();
+		//When pass the invalid username but code id 404
+		given().log().all().when().get("/user/NimalFT").then().log().all().assertThat().statusCode(404).extract().response();
 		
 		//User LogIn
 		response = given().log().all().queryParam("username", userNameData).queryParam("password", pwdData)
@@ -64,10 +67,10 @@ public class Basics {
 		
 		//When pass the invalid username and password but code id 200
 		given().log().all().queryParam("username", 2321).queryParam("password", "dnkfj")
-		.when().get("/user/login").then().log().all().assertThat().statusCode(400).extract().response();
+		.when().get("/user/login").then().log().all().assertThat().statusCode(200).extract().response();
 		
 		//Create User Array
-		given().log().all().header("Content-Type","application/json").body(Payload.createUserArray(array1, array2, array3));
+		given().log().all().header("Content-Type","application/json").body(Payload.createUserArray(array1, array2, array3)).when().post("/user/createWithArray").then().log().all().assertThat().statusCode(200);
 		
 		//Create User List
 	}
