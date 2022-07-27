@@ -52,7 +52,8 @@ public class Basics {
 		assertEquals(headerGet,"application/json");
 		
 		given().log().all().when().get("/user/Acentura").then().log().all().assertThat().statusCode(404).extract().response();
-		given().log().all().when().get("/user/1234").then().log().all().assertThat().statusCode(200).extract().response();
+		//When pass the invalid username but code id 200
+		given().log().all().when().get("/user/NimalFT").then().log().all().assertThat().statusCode(200).extract().response();
 		
 		//User LogIn
 		response = given().log().all().queryParam("username", userNameData).queryParam("password", pwdData)
@@ -61,7 +62,8 @@ public class Basics {
 		String headerGetUser = response.getHeaders().getValue("Content-Type");
 		assertEquals(headerGetUser,"application/json");
 		
-		given().log().all().queryParam("username", "Acent").queryParam("password", "Acent123")
+		//When pass the invalid username and password but code id 200
+		given().log().all().queryParam("username", 2321).queryParam("password", "dnkfj")
 		.when().get("/user/login").then().log().all().assertThat().statusCode(400).extract().response();
 		
 		//Create User Array
