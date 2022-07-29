@@ -88,7 +88,23 @@ public class Basics {
 		.when().put("/user/Samal@123").then().assertThat().statusCode(404).log().all();
 		//When pass the invalid username and password but code id 200
 		given().log().all().header("Content-Type","application/json").body(Payload.updateUser(userNameData, firstNameData, lastNameData, newEmailData, pwdData, phoneData))
-		.when().put("/user/123").then().assertThat().statusCode(404).log().all();		
+		.when().put("/user/123").then().assertThat().statusCode(404).log().all();
+		
+		//Get user logOut
+		response= given().log().all().when().get("/user/logout").then().log().all().assertThat().statusCode(200).extract().response();
+		String headerLogoutUser = response.getHeaders().getValue("Content-Type");
+		assertEquals(headerLogoutUser,"application/json");
+		
+		//Delete User
+		response= given().log().all().when().delete("/user/"+userNameData+"").then().log().all().assertThat().statusCode(200).extract().response();
+		String headerDeleteUser = response.getHeaders().getValue("Content-Type");
+		assertEquals(headerDeleteUser,"application/json");
+		given().log().all().when().delete("/user/Samal").then().log().all().assertThat().statusCode(404);
+		//When pass the invalid username but code id 404
+		given().log().all().when().delete("/user/1234").then().log().all().assertThat().statusCode(404);
+		
+		//Add Pet
+		response= given().log().all().when().delete("/user/"+userNameData+"");
 		
 	}
 
