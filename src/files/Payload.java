@@ -1,5 +1,10 @@
 package files;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import pojo.ListUser;
+
 public class Payload {
 
 	public static String createUser(String username, String firstname, String lastname, String email, String pwd, String phone) {
@@ -50,6 +55,18 @@ public class Payload {
 				+ "]";
 	}
 	
+	public static List<String> createUserList(String username, String firstname, String lastname, String email, String pwd, String phone) {		
+		List<String> userlist = new ArrayList<String>();
+		userlist.add(1, username);
+		userlist.add(2, firstname);
+		userlist.add(3, lastname);
+		userlist.add(4, email);
+		userlist.add(5, pwd);
+		userlist.add(6, phone);
+		
+		return userlist;
+	}
+	
 	public static String updateUser(String username, String firstname, String lastname, String email, String pwd, String phone) {
 		return "{\r\n"
 				+ "  \"id\": 1,\r\n"
@@ -62,4 +79,5 @@ public class Payload {
 				+ "  \"userStatus\": 0\r\n"
 				+ "}";
 	}
+	
 }

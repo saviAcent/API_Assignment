@@ -73,7 +73,7 @@ public class Basics {
 		given().log().all().header("Content-Type","application/json").body(Payload.createUserArray(array1, array2, array3)).when().post("/user/createWithArray").then().log().all().assertThat().statusCode(200);
 		
 		//Create User List
-		given().log().all().header("Content-Type","application/json").body(Payload.createUserArray(array1, array2, array3)).when().post("/user/createWithList").then().log().all().assertThat().statusCode(200);
+		given().log().all().header("Content-Type","application/json").body(Payload.createUserList(userNameData, firstNameData, lastNameData, emailData, pwdData, phoneData)).when().post("/user/createWithList").then().log().all().assertThat().statusCode(200);
 	
 		//Update User
 		response = given().log().all().header("Content-Type","application/json").body(Payload.updateUser(userNameData, firstNameData, lastNameData, newEmailData, pwdData, phoneData))
@@ -104,7 +104,9 @@ public class Basics {
 		given().log().all().when().delete("/user/1234").then().log().all().assertThat().statusCode(404);
 		
 		//Add Pet
-		response= given().log().all().when().delete("/user/"+userNameData+"");
+		response= given().log().all().body(Payload.addPet()).when().post("/pet");
+		String headerAddPet = response.getHeaders().getValue("Content-Type");
+		assertEquals(headerAddPet,"application/json");
 		
 	}
 
