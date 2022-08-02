@@ -28,7 +28,13 @@ public class Basics {
 		String[] array1 = {"Kamal", "Kamal", "De Silva", "kamalDS@gmail.com", "kamal123", "+6804584243"};
 		String[] array2 = {"Thamal", "Thamal", "Peris", "thamalP@gmail.com", "thamal123", "+5749999235"};
 		String[] array3 = {"Sumal", "Sumal", "Dissanayaka", "sumalDiss@gmail.com", "sumal123", "+6799900923"};
-		List<String> user = new ArrayList<String>();
+		int idData = Integer.parseInt(Utils.getGlobalProperty("id"));
+		int categoryIDData = Integer.parseInt(Utils.getGlobalProperty("categoryId"));
+		String categoryNameData = Utils.getGlobalProperty("categoryName");
+		String nameData = Utils.getGlobalProperty("name");
+		int tagIDData = Integer.parseInt(Utils.getGlobalProperty("tagId"));
+		String tagNameData = Utils.getGlobalProperty("tagName");
+		String statusData = Utils.getGlobalProperty("status");
 		
 		//Create User
 		response = given().log().all().header("Content-Type","application/json").body(Payload.createUser(userNameData, firstNameData, lastNameData, emailData, pwdData, phoneData))
@@ -103,10 +109,23 @@ public class Basics {
 		//When pass the invalid username but code id 404
 		given().log().all().when().delete("/user/1234").then().log().all().assertThat().statusCode(404);
 		
+		//Error 415 - unsupported media type
 		//Add Pet
-		response= given().log().all().body(Payload.addPet()).when().post("/pet");
+		response= given().log().all().body(Payload.addPet(categoryNameData, nameData, tagNameData, statusData)).when().post("/pet");
 		String headerAddPet = response.getHeaders().getValue("Content-Type");
-		assertEquals(headerAddPet,"application/json");
+		assertEquals(headerAddPet,"application/xml");
+		response.then().log().all().extract().asString();
+		assertEquals(response.statusCode(), 200);
+		
+		String petResponse =given().log().all().when().get("/pet/"+idData+"").then().log().all().extract().response().asString();
+		JsonPath js2 = new JsonPath(petResponse);		
+		String petName = js2.getString("name");
+		assertEquals(petName, nameData);
+		
+		response= given().log().all().body(Payload.addPet(categoryNameData, "sdshd", tagNameData, statusData)).when().post("/pet");
+		assertEquals(response.statusCode(), 405);
+		
+		
 		
 	}
 
