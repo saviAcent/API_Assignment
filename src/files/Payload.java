@@ -57,16 +57,27 @@ public class Payload {
 				+ "]";
 	}
 	
-	public static List<String> createUserList(String username, String firstname, String lastname, String email, String pwd, String phone) {		
+	public static String createUserList(String username, String firstname, String lastname, String email, String pwd, String phone) {		
 		List<String> userlist = new ArrayList<String>();
-		userlist.add(1, username);
-		userlist.add(2, firstname);
-		userlist.add(3, lastname);
-		userlist.add(4, email);
-		userlist.add(5, pwd);
-		userlist.add(6, phone);
+		userlist.add(0, username);
+		userlist.add(1, firstname);
+		userlist.add(2, lastname);
+		userlist.add(3, email);
+		userlist.add(4, pwd);
+		userlist.add(5, phone);
 		
-		return userlist;
+		return "[\r\n"
+				+ "  {\r\n"
+				+ "    \"id\": 5,\r\n"
+				+ "    \"username\": \""+userlist.get(0)+"\",\r\n"
+				+ "    \"firstName\": \""+userlist.get(1)+"\",\r\n"
+				+ "    \"lastName\": \""+userlist.get(2)+"\",\r\n"
+				+ "    \"email\": \""+userlist.get(3)+"\",\r\n"
+				+ "    \"password\": \""+userlist.get(4)+"\",\r\n"
+				+ "    \"phone\": \""+userlist.get(5)+"\",\r\n"
+				+ "    \"userStatus\": 0\r\n"
+				+ "  }\r\n"
+				+ "]";
 	}
 	
 	public static String updateUser(String username, String firstname, String lastname, String email, String pwd, String phone) {
