@@ -93,48 +93,68 @@ public class Payload {
 				+ "}";
 	}
 	
-//	public static String addPet(String categoryName, String name, int tagId, String tagName, String status) {
-//		ListPet userlist = new ListPet();
-//		userlist.setId(id);
-//		Category category = new Category();
-//		category.setId(categoryId);
-//		category.setName(categoryName);
-//		userlist.setCategory(category);
-//		userlist.setName(name);
-//		
-//		List<String> urlList = new ArrayList<String>();
-//		urlList.add("https://pet1.com");
-//		urlList.add("https://pet2.com");
-//		userlist.setPhotourls(urlList);
-//		
-//		Tags tag = new Tags();
-//		tag.setTagId(tagId);
-//		tag.setTagName(tagName);
-//		userlist.setTags(tag);
-//		userlist.setStatus(status);
-//		
-//		return userlist;
-//	}
+	public static ListPet addPet(String categoryName, String name, int tagId, String tagName, String status) {
+		ListPet userlist = new ListPet();
+		Category category = new Category();
+		category.setName(categoryName);
+		userlist.setCategory(category);
+		userlist.setName(name);
+		
+		List<String> urlList = new ArrayList<String>();
+		urlList.add("https://pet1.com");
+		urlList.add("https://pet2.com");
+		userlist.setPhotourls(urlList);
+		
+		Tags tag = new Tags();
+		tag.setTagId(tagId);
+		tag.setTagName(tagName);
+		userlist.setTags(tag);
+		userlist.setStatus(status);
+		
+		return userlist;
+	}
 	
 	public static String addPet(String categoryName, String name, String tagName, String status) {
 	
 			return "{\r\n"
-			+ "  \"id\": 0,\r\n"
-			+ "  \"category\": {\r\n"
-			+ "    \"id\": 0,\r\n"
-			+ "    \"name\": \""+categoryName+"\"\r\n"
-			+ "  },\r\n"
-			+ "  \"name\": \""+name+"\",\r\n"
-			+ "  \"photoUrls\": [\r\n"
-			+ "    \"string\"\r\n"
-			+ "  ],\r\n"
-			+ "  \"tags\": [\r\n"
-			+ "    {\r\n"
-			+ "      \"id\": 0,\r\n"
-			+ "      \"name\": \""+tagName+"\"\r\n"
-			+ "    }\r\n"
-			+ "  ],\r\n"
-			+ "  \"status\": \"available\"\r\n"
-			+ "}";
+					+ "  \"id\": 0,\r\n"
+					+ "  \"category\": {\r\n"
+					+ "    \"id\": 0,\r\n"
+					+ "    \"name\": \""+categoryName+"\"\r\n"
+					+ "  },\r\n"
+					+ "  \"name\": \""+name+"\",\r\n"
+					+ "  \"photoUrls\": [\r\n"
+					+ "    \"string\"\r\n"
+					+ "  ],\r\n"
+					+ "  \"tags\": [\r\n"
+					+ "    {\r\n"
+					+ "      \"id\": 0,\r\n"
+					+ "      \"name\": \""+tagName+"\"\r\n"
+					+ "    }\r\n"
+					+ "  ],\r\n"
+					+ "  \"status\": \""+status+"\"\r\n"
+					+ "}";
+	}
+	
+	public static String updatePet(int id, String categoryName, String name, String tagName, String status) {
+		
+		return "{\r\n"
+				+ "  \"id\":"+id+",\r\n"
+				+ "  \"category\": {\r\n"
+				+ "    \"id\": 0,\r\n"
+				+ "    \"name\": \""+categoryName+"\"\r\n"
+				+ "  },\r\n"
+				+ "  \"name\": \""+name+"\",\r\n"
+				+ "  \"photoUrls\": [\r\n"
+				+ "    \"string\"\r\n"
+				+ "  ],\r\n"
+				+ "  \"tags\": [\r\n"
+				+ "    {\r\n"
+				+ "      \"id\": 0,\r\n"
+				+ "      \"name\": \""+tagName+"\"\r\n"
+				+ "    }\r\n"
+				+ "  ],\r\n"
+				+ "  \"status\": \""+status+"\"\r\n"
+				+ "}";
 	}
 }
